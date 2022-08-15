@@ -1,0 +1,87 @@
+<%- include('partials/header.ejs') %>
+<h1>Register</h1>
+<form action="/cadastro/?accounttype=restaurante" method="POST">
+<div>
+    <label for="name">Nome</label>
+    <input
+      type="name"
+      name="name"
+      placeholder="Digite o nome"
+      value="<%= typeof name != 'undefined' ? name : '' %>"
+    />
+  
+</div>
+<div>
+    <label for="email">Email</label>
+    <input
+      type="email"
+      name="email"
+      placeholder="Digite o Email"
+      value="<%= typeof email != 'undefined' ? email : '' %>"
+    />
+  </div>
+  <div >
+    <label for="password">Password</label>
+    <input
+      type="password"
+      name="password"
+      placeholder="Digite a senha"
+      value="<%= typeof password != 'undefined' ? password : '' %>"
+    />
+  </div>
+  <div >
+    <label for="rua">Rua</label>
+    <input
+      type="rua"
+      name="rua"
+      placeholder="Rua"
+      value="<%= typeof rua != 'undefined' ? rua : '' %>"
+    />
+  </div>
+  <div >
+    <label for="bairro">Bairro</label>
+    <input
+      type="bairro"
+      name="bairro"
+      placeholder="bairro"
+      value="<%= typeof bairro != 'undefined' ? bairro : '' %>"
+    />
+  </div>
+  <div >
+    <label for="rua">CEP</label>
+    <input
+      type="cep"
+      name="cep"
+      placeholder="cep"
+      value="<%= typeof cep != 'undefined' ? cep : '' %>"
+    />
+  </div>
+  <div >
+    <label for="rua">Número</label>
+    <input
+      type="numero"
+      name="numero"
+      placeholder="numero"
+      value="<%= typeof numero != 'undefined' ? numero : '' %>"
+    />
+  </div> 
+  <div >
+    <label for="telefone">Telefone</label>
+    <input
+      type="telefone"
+      name="telefone"
+      placeholder="telefone"
+      value="<%= typeof telefone != 'undefined' ? telefone : '' %>"
+    />
+  </div>
+  <p><%= mensagem %></p>
+  <button type="submit" class="btn btn-primary btn-block">
+    Confirmar
+  </button>
+</form>
+<p >Tem uma conta? <a href="/login">Login</a></p>
+<footer >
+    <%- include('partials/footer.ejs') %>
+</footer>
+</body>
+</html>
