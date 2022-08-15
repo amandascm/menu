@@ -11,7 +11,6 @@ export class TelaCadastroControle {
     }
 
     registrar(req: Request, res: Response) {
-        console.log(req.body);
         const accountType = req.query.accounttype;
         if(accountType === "restaurante") {
             const {name, email, password, rua, bairro, cep, numero, telefone} = req.body;
