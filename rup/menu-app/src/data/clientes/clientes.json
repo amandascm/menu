@@ -1,0 +1,28 @@
+{
+    "clientes": [
+        {
+            "id": 0,
+            "email": "usuario1@user.com",
+            "senha": "ldaksmdlkam",
+            "nome": "Usuario Um",
+            "endereco": {
+                "rua": "Rua Esmeraldino Bandeira",
+                "cep": 52030090,
+                "numero": 150,
+                "bairro": "Graças"
+            }
+        },
+        {
+            "id": 1,
+            "email": "usuario2@user.com",
+            "senha": "123456_654321",
+            "nome": "Usuario Dois",
+            "endereco": {
+                "rua": "Rua Cardeal Arcoverde",
+                "cep": 520309924,
+                "numero": 160,
+                "bairro": "Graças"
+            }
+        }
+    ]
+}
