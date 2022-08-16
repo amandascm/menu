@@ -3,5 +3,6 @@ import { Cliente } from "../entidades/cliente";
 
 export interface IRepositorioClientes {
     existeCliente(c: Conta): boolean;
-    registrarCliente(c: Cliente): Cliente;    
+    registrarCliente(c: Cliente): Cliente;
+    getConta(email: string): Conta;
 }

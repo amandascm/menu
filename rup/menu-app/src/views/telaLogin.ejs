@@ -1,0 +1,15 @@
+<%- include('partials/header.ejs') %>
+<h1>Login externo</h1>
+<p style="color: red;"><%= mensagem %></p>
+<h2>Cliente</h2>
+<p>Há um retorno aleatório entre sucesso e falha pelo subsistema da operadora OAuth. Teste mais de uma vez para verificar.</p>
+<form action="/login" method="POST">
+    <button type="submit" class="btn btn-primary btn-block">
+      Simular login OAuth
+    </button>
+  </form>
+<footer >
+    <%- include('partials/footer.ejs') %>
+</footer>
+</body>
+</html>

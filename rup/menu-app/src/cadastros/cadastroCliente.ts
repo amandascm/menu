@@ -16,4 +16,8 @@ export class CadastroCliente {
     registrarCliente(c: Cliente): Cliente {
         return this.repositorio.registrarCliente(c);
     }
+
+    getClienteConta(email: string): Conta {
+        return this.repositorio.getConta(email);
+    }
 }

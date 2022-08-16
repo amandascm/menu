@@ -4,6 +4,7 @@ import { IRepositorioClientes } from "./iRepositorioClientes";
 import bancoClientes from "../data/clientes/clientes.json";
 import fs from 'fs'
 import path from 'path'
+import { Endereco } from "../entidades/endereco";
 
 
 export class RepositorioClientesOO implements IRepositorioClientes {
@@ -36,6 +37,15 @@ export class RepositorioClientesOO implements IRepositorioClientes {
         this.clientes.push(JSON.parse(JSON.stringify(c)));
         this.atualizaBanco();
         return c;
+    }
+
+    public getConta(email: string): Conta {
+        const existe = this.clientes.find(i => i.email == email);
+        if(existe) {
+            return new Conta(existe.id, existe.email, existe.senha);
+        }else {
+            return new Conta(-1, '', '');
+        }
     }
 
 }
