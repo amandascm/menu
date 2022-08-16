@@ -27,6 +27,6 @@ export class TelaCadastroControle {
                 return res.redirect("../login")
             }
         }
-        return res.render("register", {mensagem: 'Uma conta já existe com o email fornecido.'})
+        return res.render("telaCadastro", {mensagem: 'Uma conta já existe com o email fornecido.'})
     }
 }

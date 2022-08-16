@@ -20,7 +20,7 @@ app.get("/", function (req, res) {
 });
 
 app.get("/cadastro", function(req, res) {
-    res.render("register", {mensagem: ''});
+    res.render("telaCadastro", {mensagem: ''});
 })
 
 app.post("/cadastro", function(req, res) {
