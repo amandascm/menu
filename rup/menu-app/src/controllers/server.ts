@@ -22,7 +22,7 @@ app.get("/", function (req, res) {
 });
 
 app.get("/cadastro", function(req, res) {
-    res.render("telaCadastro", {mensagem: ''});
+  res.render("telaCadastro", {mensagem: ''});
 })
 
 app.get("/login", function(req, res) {
@@ -33,13 +33,9 @@ app.get("/welcome", function(req,res) {
   res.render("welcome");
 })
 
-app.post("/cadastro", function(req, res) {
-    return telaCadastroControle.registrar(req, res);
-})
+app.post("/cadastro", (req, res) => telaCadastroControle.registrar(req, res));
 
-app.post('/login', function(req,res) {
-  return telaLoginControle.loginExterno(req,res);
-})
+app.post('/login', (req, res) => telaLoginControle.loginExterno(req, res));
 
 app.listen(port, function () {
   console.log(`Server is running on port ${port}`);
