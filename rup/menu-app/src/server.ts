@@ -1,8 +1,8 @@
 import path from 'path';
 import express from 'express';
-import { Fachada } from '../controladores/fachada';
-import { TelaCadastroControle } from './telaCadastroControle';
-import { TelaLoginControle } from './telaLoginControle';
+import { Fachada } from './controladores/fachada';
+import { TelaCadastroControle } from './controllers/telaCadastroControle';
+import { TelaLoginControle } from './controllers/telaLoginControle';
 import bodyParser from "body-parser";
 
 const app = express();
