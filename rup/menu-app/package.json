@@ -2,10 +2,11 @@
   "name": "menu-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server.ts",
   "scripts": {
     "build": "rimraf build && tsc",
     "postbuild": "copyfiles -u 1 src/**/*.ejs build/",
+    "preserve": "npm run build",
     "prestart": "npm run build",
     "serve": "cross-env NODE_ENV=development concurrently \"tsc --watch\" \"nodemon -q build/server.js\"",
     "start": "cross-env NODE_ENV=production node build/server.js",
