@@ -14,8 +14,11 @@ export class RepositorioClientesOO implements IRepositorioClientes {
         this.clientes = bancoClientes['clientes'];
     }
     
-    public existeCliente(c: Conta): boolean {
-        return this.clientes.find(i => i.email == c.getEmail()) !== undefined;
+    public existeCliente(c: Conta): Conta {
+        const cliente = this.clientes.find(i => i.email == c.getEmail())
+        return cliente
+                ? new Conta(cliente.id, cliente.email, cliente.senha)
+                : new Conta(0, '', '');
     }
 
     private getNewId(): number {
@@ -44,7 +47,7 @@ export class RepositorioClientesOO implements IRepositorioClientes {
         if(existe) {
             return new Conta(existe.id, existe.email, existe.senha);
         }else {
-            return new Conta(-1, '', '');
+            return new Conta(0, '', '');
         }
     }
 

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Fachada } from "../controladores/fachada";
 import { Cliente } from "../entidades/cliente";
+import { Conta } from "../entidades/conta";
 import { Endereco } from "../entidades/endereco";
 import { Restaurante } from "../entidades/restaurante";
 
@@ -14,8 +15,18 @@ export class TelaLoginControle {
     loginExterno(req: Request, res: Response) {
         if(this.fachada.controladorLogin.loginExterno()) {
             return res.render("welcome");
-        }else {
-            return res.render("telaLogin", {mensagem: 'Falha no login.'})
         }
+        else {
+            return res.render("telaLogin", {mensagem: 'Falha no login OAuth.'})
+        }
+    }
+
+    login(req: Request, res: Response) {
+        const {email, password} = req.body
+        const accountType = req.query.accountType === 'cliente' ? 'cliente' : 'restaurante'
+        if(this.fachada.controladorLogin.login(email, password, accountType)) {
+            return res.render("welcome");
+        }
+        return res.render("telaLogin", {mensagem: "Falha no login."})
     }
 }

@@ -20,7 +20,12 @@ export class RepositorioSessaoOO implements IRepositorioSessao {
         });
     }
 
+    private getNewToken(): string {
+        return (parseInt(this.sessoes[this.sessoes.length - 1].token) + 1).toString();
+    }
+
     public registrarSessao(s: Sessao): Sessao {
+        s = new Sessao(this.getNewToken(), s.getTipoConta(), s.getContaId());
         this.sessoes.push(JSON.parse(JSON.stringify(s)));
         this.atualizaBanco();
         return s;
@@ -31,7 +36,7 @@ export class RepositorioSessaoOO implements IRepositorioSessao {
         if(existe) {
             return new Sessao(existe.token, existe.tipoConta, existe.contaId);
         }else {
-            return new Sessao('', '', -1);
+            return new Sessao('', '', 0);
         }
     }
 

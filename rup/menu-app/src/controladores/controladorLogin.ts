@@ -1,40 +1,61 @@
 import { CadastroSessao } from "../cadastros/cadastroSessao";
 import { CadastroCliente } from "../cadastros/cadastroCliente";
+import { CadastroRestaurante } from "../cadastros/cadastroRestaurante";
 import { Sessao } from "../entidades/sessao";
 import { Cliente } from "../entidades/cliente";
 import { ISubsistemaComunicacaoOperadoraOAuthLogin } from "../subsistemas/comunicacaoOpOAuthLogin/ISubsistemaComunicacaoOperadoraOAuthLogin";
 import { FachadaComunicacaoOperadoraOAuthLogin } from "../subsistemas/comunicacaoOpOAuthLogin/fachadaComunicacaoOperadoraOAuthLogin";
 import { Endereco } from "../entidades/endereco";
+import { Conta } from "../entidades/conta";
 
 export class ControladorLogin {
     cadastroSessao: CadastroSessao;
     cadastroCliente: CadastroCliente;
+    cadastroRestaurante: CadastroRestaurante;
     subsistemaComunicacaoOpOAuthLogin: ISubsistemaComunicacaoOperadoraOAuthLogin;
 
-    constructor(cadastroS: CadastroSessao, cadastroC: CadastroCliente) {
+    constructor(cadastroS: CadastroSessao, cadastroC: CadastroCliente, cadastroR: CadastroRestaurante) {
         this.cadastroSessao = cadastroS;
         this.cadastroCliente = cadastroC;
+        this.cadastroRestaurante = cadastroR;
         this.subsistemaComunicacaoOpOAuthLogin = new FachadaComunicacaoOperadoraOAuthLogin();
     }
 
-    public loginExterno(): number {
+    private existeCliente(conta: Conta) {
+        return this.cadastroCliente.existeCliente(conta);
+    }
+
+    private existeRestaurante(conta: Conta) {
+        return this.cadastroRestaurante.existeRestaurante(conta);
+    }
+
+    public login(email: string, senha: string, tipoConta: string): string {
+        const conta = new Conta(0, email, senha);
+        const recoveredConta = tipoConta === 'cliente' ? this.existeCliente(conta) : this.existeRestaurante(conta);
+        if (recoveredConta.getId()) {
+            const sessao = new Sessao('', tipoConta, recoveredConta.getId());
+            return this.cadastroSessao.registrarSessao(sessao).getToken();
+        } else {
+            return '';
+        }
+    }
+
+    public loginExterno(): string {
         const response = this.subsistemaComunicacaoOpOAuthLogin.login();
         if(response.token) {    // se o login externo foi validado
-            const endereco = new Endereco('',-1,'',-1)
-            const c = new Cliente(-1, response.email, '', response.nome, endereco)
+            const endereco = new Endereco('',0,'',0)
+            const c = new Cliente(0, response.email, '', response.nome, endereco)
             if(!this.cadastroCliente.existeCliente(c)) {
                 const registeredClient = this.cadastroCliente.registrarCliente(c);
                 const sessao = new Sessao(response.token, 'cliente', registeredClient.getId());
-                this.cadastroSessao.registrarSessao(sessao);
-                return registeredClient.getId();
+                return this.cadastroSessao.registrarSessao(sessao).getToken();
             }
             else {
                 const registeredConta = this.cadastroCliente.getClienteConta(response.email);
                 const sessao = new Sessao(response.token, 'cliente', registeredConta.getId());
-                this.cadastroSessao.registrarSessao(sessao);
-                return registeredConta.getId();
+                return this.cadastroSessao.registrarSessao(sessao).getToken();
             }
         }
-        return -1
+        return ''
     }
 }

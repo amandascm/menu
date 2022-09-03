@@ -27,7 +27,7 @@ export class Fachada {
         const cadastroSessao = new CadastroSessao(repositorioSessao);
 
         this.controladorCadastro = new ControladorCadastro(cadastroRestaurante, cadastroCliente);
-        this.controladorLogin = new ControladorLogin(cadastroSessao, cadastroCliente);
+        this.controladorLogin = new ControladorLogin(cadastroSessao, cadastroCliente, cadastroRestaurante);
     }
 
     registrarRestaurante(r: Restaurante): boolean {
@@ -38,7 +38,7 @@ export class Fachada {
         return this.controladorCadastro.registrarCliente(c);
     }
 
-    loginExterno(): number {
+    loginExterno(): string {
         return this.controladorLogin.loginExterno();
     } 
 }

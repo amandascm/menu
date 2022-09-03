@@ -14,8 +14,11 @@ export class RepositorioRestaurantesOO implements IRepositorioRestaurantes {
     }
 
     
-    public existeRestaurante(c: Conta): boolean {
-        return this.restaurantes.find(r => r.email == c.getEmail()) !== undefined;
+    public existeRestaurante(c: Conta): Conta {
+        const restaurante = this.restaurantes.find(r => r.email == c.getEmail());
+        return restaurante
+                ? new Conta(restaurante.id, restaurante.email, restaurante.senha)
+                : new Conta(0, '', '');
     }
 
     private getNewId(): number {

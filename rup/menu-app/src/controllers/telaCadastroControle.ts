@@ -16,14 +16,14 @@ export class TelaCadastroControle {
         if(accountType === "restaurante") {
             const {name, email, password, rua, bairro, cep, numero, telefone} = req.body;
             const endereco = new Endereco(rua, cep, bairro, numero);
-            if(this.fachada.registrarRestaurante(new Restaurante(-1, email, password, name, endereco, telefone))) {
+            if(this.fachada.registrarRestaurante(new Restaurante(0, email, password, name, endereco, telefone))) {
                 return res.redirect("../login")
             }
         }
         else if(accountType === "cliente") {
             const {name, email, password, rua, bairro, cep, numero} = req.body;
             const endereco = new Endereco(rua, cep, bairro, numero);
-            if(this.fachada.registrarCliente(new Cliente(-1, email, password, name, endereco))) {
+            if(this.fachada.registrarCliente(new Cliente(0, email, password, name, endereco))) {
                 return res.redirect("../login")
             }
         }
