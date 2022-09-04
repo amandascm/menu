@@ -5,4 +5,5 @@ export interface IRepositorioClientes {
     existeCliente(c: Conta): Conta;
     registrarCliente(c: Cliente): Cliente;
     getConta(email: string): Conta;
+    verificaCliente(c: Conta): Conta;
 }

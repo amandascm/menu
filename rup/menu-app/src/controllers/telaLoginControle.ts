@@ -23,7 +23,7 @@ export class TelaLoginControle {
 
     login(req: Request, res: Response) {
         const {email, password} = req.body
-        const accountType = req.query.accountType === 'cliente' ? 'cliente' : 'restaurante'
+        const accountType = req.query.accounttype === 'cliente' ? 'cliente' : 'restaurante'
         if(this.fachada.controladorLogin.login(email, password, accountType)) {
             return res.render("welcome");
         }

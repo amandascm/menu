@@ -21,6 +21,14 @@ export class RepositorioRestaurantesOO implements IRepositorioRestaurantes {
                 : new Conta(0, '', '');
     }
 
+    public verificaRestaurante(c: Conta): Conta {
+        const restaurante = this.restaurantes.find(r => r.email == c.getEmail() && r.senha == c.getSenha());
+        return restaurante
+                ? new Conta(restaurante.id, restaurante.email, restaurante.senha)
+                : new Conta(0, '', '');
+    }
+
+
     private getNewId(): number {
         return this.restaurantes[this.restaurantes.length - 1].id + 1;
     }

@@ -16,4 +16,8 @@ export class CadastroRestaurante {
     registrarRestaurante(r: Restaurante): Restaurante {
         return this.repositorio.registrarRestaurante(r);
     }
+
+    verificaRestaurante(c: Conta): Conta {
+        return this.repositorio.verificaRestaurante(c);
+    }
 }

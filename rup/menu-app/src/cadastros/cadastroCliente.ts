@@ -20,4 +20,8 @@ export class CadastroCliente {
     getClienteConta(email: string): Conta {
         return this.repositorio.getConta(email);
     }
+
+    verificaCliente(c: Conta): Conta {
+        return this.repositorio.verificaCliente(c);
+    }
 }

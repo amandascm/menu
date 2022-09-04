@@ -21,6 +21,13 @@ export class RepositorioClientesOO implements IRepositorioClientes {
                 : new Conta(0, '', '');
     }
 
+    public verificaCliente(c: Conta): Conta {
+        const cliente = this.clientes.find(i => i.email == c.getEmail() && i.senha == c.getSenha())
+        return cliente
+                ? new Conta(cliente.id, cliente.email, cliente.senha)
+                : new Conta(0, '', '');
+    }
+
     private getNewId(): number {
         return this.clientes[this.clientes.length - 1].id + 1;
     }

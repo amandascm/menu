@@ -21,17 +21,11 @@ export class ControladorLogin {
         this.subsistemaComunicacaoOpOAuthLogin = new FachadaComunicacaoOperadoraOAuthLogin();
     }
 
-    private existeCliente(conta: Conta) {
-        return this.cadastroCliente.existeCliente(conta);
-    }
-
-    private existeRestaurante(conta: Conta) {
-        return this.cadastroRestaurante.existeRestaurante(conta);
-    }
-
     public login(email: string, senha: string, tipoConta: string): string {
         const conta = new Conta(0, email, senha);
-        const recoveredConta = tipoConta === 'cliente' ? this.existeCliente(conta) : this.existeRestaurante(conta);
+        const recoveredConta = tipoConta === 'cliente'
+                                ? this.cadastroCliente.verificaCliente(conta)
+                                : this.cadastroRestaurante.verificaRestaurante(conta);
         if (recoveredConta.getId()) {
             const sessao = new Sessao('', tipoConta, recoveredConta.getId());
             return this.cadastroSessao.registrarSessao(sessao).getToken();

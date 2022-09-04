@@ -3,5 +3,6 @@ import { Restaurante } from "../entidades/restaurante";
 
 export interface IRepositorioRestaurantes {
     existeRestaurante(c: Conta): Conta;
-    registrarRestaurante(r: Restaurante): Restaurante;    
+    registrarRestaurante(r: Restaurante): Restaurante;
+    verificaRestaurante(c: Conta): Conta;
 }
