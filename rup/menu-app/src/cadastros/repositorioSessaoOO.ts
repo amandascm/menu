@@ -25,7 +25,7 @@ export class RepositorioSessaoOO implements IRepositorioSessao {
     }
 
     public registrarSessao(s: Sessao): Sessao {
-        s = new Sessao(this.getNewToken(), s.getTipoConta(), s.getContaId());
+        s.setToken(this.getNewToken())
         this.sessoes.push(JSON.parse(JSON.stringify(s)));
         this.atualizaBanco();
         return s;

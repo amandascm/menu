@@ -20,4 +20,8 @@ export class Sessao {
     public getContaId(): number {
         return this.contaId;
     }
+
+    public setToken(token: string): void {
+        this.token = token;
+    }
 }
