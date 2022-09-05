@@ -42,11 +42,11 @@ app.post('/login', (req, res) => telaLoginControle.login(req, res));
 // Authentication middleware applied to the following routes
 app.use((req, res, next) => telaLoginControle.authenticate(req, res, next))
 
-app.get('/restaurante', (req, res) => res.render('welcome'));
+app.get('/restaurante', (req, res) => res.render('welcome-restaurante'));
 
 app.get("/restaurante/cardapio", (req, res) => telaCardapioRestauranteControle.visualizarCardapio(req, res));
 
-app.get('/cliente', (req, res) => res.render('welcome'));
+app.get('/cliente', (req, res) => res.render('welcome-cliente'));
 
 app.listen(port, function () {
   console.log(`Server is running on port ${port}`);
