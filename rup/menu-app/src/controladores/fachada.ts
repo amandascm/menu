@@ -8,6 +8,7 @@ import { AbstractFactoryRepositorio } from "../cadastros/abstractFactoryReposito
 import { Cliente } from "../entidades/cliente";
 import { CadastroSessao } from "../cadastros/cadastroSessao";
 import { CadastroCardapio } from "../cadastros/cadastroCardapio";
+import { ControladorVisualizarCardapio } from "./controladorVisualizarCardapio";
 
 const config = {
     "FACTORY_REPOSITORIOS": FactoryRepositorioOO
@@ -16,6 +17,7 @@ const config = {
 export class Fachada {
     controladorCadastro: ControladorCadastro;
     controladorLogin: ControladorLogin;
+    controladorVisualizarCardapio: ControladorVisualizarCardapio;
 
     constructor() {
         const factoryRepositorios = new config['FACTORY_REPOSITORIOS']() as AbstractFactoryRepositorio;
@@ -31,6 +33,11 @@ export class Fachada {
 
         this.controladorCadastro = new ControladorCadastro(cadastroRestaurante, cadastroCliente, cadastroCardapio);
         this.controladorLogin = new ControladorLogin(cadastroSessao, cadastroCliente, cadastroRestaurante);
+        this.controladorVisualizarCardapio = new ControladorVisualizarCardapio(cadastroCardapio);
+    }
+
+    visualizarCardapio(restId: number) {
+        return this.controladorVisualizarCardapio.getItensCardapio(restId);
     }
 
     registrarRestaurante(r: Restaurante): boolean {

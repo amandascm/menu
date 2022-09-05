@@ -12,6 +12,7 @@ export class TelaLoginControle {
         const accesstoken = req.cookies['accesstoken'] ?? '';
         const contaId = this.fachada.controladorLogin.authenticate(accesstoken);
         if(contaId) {
+            res.locals.contaId = contaId;
             next();
         }
         else {

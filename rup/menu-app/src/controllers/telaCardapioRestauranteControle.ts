@@ -9,9 +9,8 @@ export class TelaCardapioRestauranteControle {
     }
 
     visualizarCardapio(req: Request, res: Response) {
-        res.render('telaCardapioRestaurante', {itens: [
-            {nome: "lasanha", descricao: "com molho de tomate", preco: 23.70, disponivel: true},
-            {nome: "risoto", descricao: "com molho branco", preco: 26.70, disponivel: false},
-        ]})
+        const contaId = res.locals.contaId
+        const cardapioItens = this.fachada.visualizarCardapio(contaId)
+        res.render('telaCardapioRestaurante', {itens: cardapioItens})
     }
 }
