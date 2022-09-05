@@ -9,7 +9,7 @@ export class CadastroRestaurante {
         this.repositorio = repositorio;
     }
 
-    existeRestaurante(c: Conta): Conta {
+    existeRestaurante(c: Conta): boolean {
         return this.repositorio.existeRestaurante(c);
     }
 

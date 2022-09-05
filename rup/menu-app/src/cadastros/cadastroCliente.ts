@@ -9,7 +9,7 @@ export class CadastroCliente {
         this.repositorio = repositorio;
     }
 
-    existeCliente(c: Conta): Conta {
+    existeCliente(c: Conta): boolean {
         return this.repositorio.existeCliente(c);
     }
 

@@ -14,11 +14,9 @@ export class RepositorioClientesOO implements IRepositorioClientes {
         this.clientes = bancoClientes['clientes'];
     }
     
-    public existeCliente(c: Conta): Conta {
+    public existeCliente(c: Conta): boolean {
         const cliente = this.clientes.find(i => i.email == c.getEmail())
-        return cliente
-                ? new Conta(cliente.id, cliente.email, cliente.senha)
-                : new Conta(0, '', '');
+        return cliente !== undefined;
     }
 
     public verificaCliente(c: Conta): Conta {
