@@ -3,6 +3,7 @@ import express from 'express';
 import { Fachada } from './controladores/fachada';
 import { TelaCadastroControle } from './controllers/telaCadastroControle';
 import { TelaLoginControle } from './controllers/telaLoginControle';
+import { TelaCardapioRestauranteControle } from './controllers/telaCardapioRestauranteControle';
 import bodyParser from "body-parser";
 import cookieParser from 'cookie-parser';
 
@@ -15,6 +16,7 @@ app.use(cookieParser());
 const fachada: Fachada = new Fachada();
 const telaCadastroControle: TelaCadastroControle = new TelaCadastroControle(fachada);
 const telaLoginControle: TelaLoginControle = new TelaLoginControle(fachada);
+const telaCardapioRestauranteControle: TelaCardapioRestauranteControle = new TelaCardapioRestauranteControle(fachada);
 
 app.set("view engine", "ejs");
 app.set('views', [path.join(__dirname,'views')]);
@@ -41,6 +43,8 @@ app.post('/login', (req, res) => telaLoginControle.login(req, res));
 app.use((req, res, next) => telaLoginControle.authenticate(req, res, next))
 
 app.get('/restaurante', (req, res) => res.render('welcome'));
+
+app.get("/restaurante/cardapio", (req, res) => telaCardapioRestauranteControle.visualizarCardapio(req, res));
 
 app.get('/cliente', (req, res) => res.render('welcome'));
 
