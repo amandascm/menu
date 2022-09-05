@@ -5,6 +5,8 @@ import { RepositorioClientesOO } from "./repositorioClientesOO";
 import { IRepositorioClientes } from "./iRepositorioClientes";
 import { IRepositorioSessao } from "./iRepositorioSessao";
 import { RepositorioSessaoOO } from "./repositorioSessaoOO";
+import { IRepositorioCardapios } from "./iRepositorioCardapios";
+import { RepositorioCardapiosOO } from "./repositorioCardapiosOO";
 
 export class FactoryRepositorioOO extends AbstractFactoryRepositorio {
     createRepositorioRestaurantes(): IRepositorioRestaurantes {
@@ -17,5 +19,9 @@ export class FactoryRepositorioOO extends AbstractFactoryRepositorio {
 
     createRepositorioSessao(): IRepositorioSessao {
         return new RepositorioSessaoOO();
+    }
+
+    createRepositorioCardapios(): IRepositorioCardapios {
+        return new RepositorioCardapiosOO();
     }
 }

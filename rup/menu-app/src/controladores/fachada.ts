@@ -7,6 +7,7 @@ import { FactoryRepositorioOO } from "../cadastros/factoryRepositorioOO";
 import { AbstractFactoryRepositorio } from "../cadastros/abstractFactoryRepositorio";
 import { Cliente } from "../entidades/cliente";
 import { CadastroSessao } from "../cadastros/cadastroSessao";
+import { CadastroCardapio } from "../cadastros/cadastroCardapio";
 
 const config = {
     "FACTORY_REPOSITORIOS": FactoryRepositorioOO
@@ -21,12 +22,14 @@ export class Fachada {
         const repositorioRestaurantes = factoryRepositorios.createRepositorioRestaurantes();
         const repositorioClientes = factoryRepositorios.createRepositorioClientes();
         const repositorioSessao = factoryRepositorios.createRepositorioSessao();
+        const repositorioCardapios = factoryRepositorios.createRepositorioCardapios();
 
         const cadastroRestaurante = new CadastroRestaurante(repositorioRestaurantes);
         const cadastroCliente = new CadastroCliente(repositorioClientes);
         const cadastroSessao = new CadastroSessao(repositorioSessao);
+        const cadastroCardapio = new CadastroCardapio(repositorioCardapios);
 
-        this.controladorCadastro = new ControladorCadastro(cadastroRestaurante, cadastroCliente);
+        this.controladorCadastro = new ControladorCadastro(cadastroRestaurante, cadastroCliente, cadastroCardapio);
         this.controladorLogin = new ControladorLogin(cadastroSessao, cadastroCliente, cadastroRestaurante);
     }
 
