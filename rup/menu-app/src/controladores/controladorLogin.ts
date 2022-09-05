@@ -21,6 +21,11 @@ export class ControladorLogin {
         this.subsistemaComunicacaoOpOAuthLogin = new FachadaComunicacaoOperadoraOAuthLogin();
     }
 
+    public authenticate(token: string): number {
+        const sessao = this.cadastroSessao.getSessao(token);
+        return sessao.getContaId();
+    }
+
     public login(email: string, senha: string, tipoConta: string): string {
         const conta = new Conta(0, email, senha);
         const recoveredConta = tipoConta === 'cliente'

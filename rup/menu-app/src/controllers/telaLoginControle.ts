@@ -8,6 +8,17 @@ export class TelaLoginControle {
         this.fachada = fachada;
     }
 
+    authenticate(req: Request, res: Response, next: any) {
+        const accesstoken = req.cookies['accesstoken'] ?? '';
+        const contaId = this.fachada.controladorLogin.authenticate(accesstoken);
+        if(contaId) {
+            next();
+        }
+        else {
+            res.status(401).render('unauthorized');
+        }
+    }
+
     loginExterno(req: Request, res: Response) {
         if(this.fachada.controladorLogin.loginExterno()) {
             return res.render("welcome");
@@ -20,7 +31,11 @@ export class TelaLoginControle {
     login(req: Request, res: Response) {
         const {email, password} = req.body
         const accountType = req.query.accounttype === 'cliente' ? 'cliente' : 'restaurante'
-        if(this.fachada.controladorLogin.login(email, password, accountType)) {
+        const token = this.fachada.controladorLogin.login(email, password, accountType)
+        if(token) {
+            res.setHeader('Set-Cookie', [
+                `accesstoken=${token}; Path=/; HttpOnly; Max-Age=${60000 * 15};`,
+            ])
             return res.render("welcome");
         }
         return res.render("telaLogin", {mensagem: "Falha no login."})

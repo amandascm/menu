@@ -4,11 +4,13 @@ import { Fachada } from './controladores/fachada';
 import { TelaCadastroControle } from './controllers/telaCadastroControle';
 import { TelaLoginControle } from './controllers/telaLoginControle';
 import bodyParser from "body-parser";
+import cookieParser from 'cookie-parser';
 
 const app = express();
 const port = 8000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 const fachada: Fachada = new Fachada();
 const telaCadastroControle: TelaCadastroControle = new TelaCadastroControle(fachada);
@@ -29,15 +31,14 @@ app.get("/login", function(req, res) {
   res.render("telaLogin", {mensagem: ''})
 })
 
-app.get("/welcome", function(req,res) {
-  res.render("welcome");
-})
-
 app.post("/cadastro", (req, res) => telaCadastroControle.registrar(req, res));
 
 app.post('/loginexterno', (req, res) => telaLoginControle.loginExterno(req, res));
 
 app.post('/login', (req, res) => telaLoginControle.login(req, res));
+
+// Authentication middleware applied to the following routes
+app.use((req, res, next) => telaLoginControle.authenticate(req, res, next))
 
 app.listen(port, function () {
   console.log(`Server is running on port ${port}`);
