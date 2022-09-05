@@ -21,7 +21,7 @@ export class TelaLoginControle {
 
     loginExterno(req: Request, res: Response) {
         if(this.fachada.controladorLogin.loginExterno()) {
-            return res.render("welcome");
+            return res.redirect(`../cliente`);
         }
         else {
             return res.render("telaLogin", {mensagem: 'Falha no login OAuth.'})
@@ -36,7 +36,7 @@ export class TelaLoginControle {
             res.setHeader('Set-Cookie', [
                 `accesstoken=${token}; Path=/${accountType}; HttpOnly; Max-Age=${60000 * 15};`,
             ])
-            return res.render("welcome");
+            return res.redirect(`../${accountType}`);
         }
         return res.render("telaLogin", {mensagem: "Falha no login."})
     }
