@@ -15,7 +15,7 @@ export class RepositorioCardapiosOO implements IRepositorioCardapios {
 
     private atualizaBanco(): void {
         const data = JSON.stringify({"cardapios": this.cardapios});
-        fs.writeFile(path.join(__dirname, '..', 'data', 'caredapios', 'cardapios.json'), data, (err) => {
+        fs.writeFile(path.join(__dirname, '..', 'data', 'cardapios', 'cardapios.json'), data, (err) => {
             if (err) {
                 throw err;
             }
