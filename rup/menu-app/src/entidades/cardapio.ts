@@ -17,11 +17,11 @@ export class Cardapio {
         return this.restId
     }
 
-    private existeItem(i: Item): boolean {
+    public existeItem(i: Item): boolean {
         return this.itens.find((e) => e.nome === i.nome) !== undefined
     }
 
-    private recuperaItemIndex(nome: string): number {
+    public recuperaItemIndex(nome: string): number {
         return this.itens.findIndex((e) => e.nome === nome)
     }
 
@@ -33,6 +33,15 @@ export class Cardapio {
         else {
             return false
         }
+    }
+
+    public deleteItem(nome: string): boolean {
+        const toDeleteIndex = this.recuperaItemIndex(nome)
+        if(toDeleteIndex >= 0) {
+            this.itens = this.itens.splice(toDeleteIndex, 1)
+            return true
+        }
+        return false
     }
 
     public updateItem(nome: string, i: Item): boolean {

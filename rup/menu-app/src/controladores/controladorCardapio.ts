@@ -1,6 +1,6 @@
 import { CadastroCardapio } from "../cadastros/cadastroCardapio";
 
-export class ControladorVisualizarCardapio {
+export class ControladorCardapio {
     cadastroCardapio : CadastroCardapio;
 
     constructor(cadastroCardapio: CadastroCardapio) {
@@ -15,5 +15,9 @@ export class ControladorVisualizarCardapio {
         } else {
             return []
         }
+    }
+
+    public deleteItemCardapio(restId: number, nomeItem: string) {
+        return this.cadastroCardapio.deleteItemCardapio(restId, nomeItem);
     }
 }

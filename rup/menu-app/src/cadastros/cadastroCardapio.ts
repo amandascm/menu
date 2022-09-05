@@ -20,4 +20,8 @@ export class CadastroCardapio {
     getCardapioDisponiveis(restId: number): Cardapio {
         return this.repositorio.getCardapioDisponiveis(restId);
     }
+
+    deleteItemCardapio(restId: number, nomeItem: string): boolean {
+        return this.repositorio.deleteItem(restId, nomeItem);
+    }
 }

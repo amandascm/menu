@@ -46,6 +46,8 @@ app.get('/restaurante', (req, res) => res.render('welcome-restaurante'));
 
 app.get("/restaurante/cardapio", (req, res) => telaCardapioRestauranteControle.visualizarCardapio(req, res));
 
+app.post("/restaurante/cardapio/delete", (req, res) => telaCardapioRestauranteControle.removerItemCardapio(req, res));
+
 app.get('/cliente', (req, res) => res.render('welcome-cliente'));
 
 app.listen(port, function () {

@@ -13,4 +13,14 @@ export class TelaCardapioRestauranteControle {
         const cardapioItens = this.fachada.visualizarCardapio(contaId)
         res.render('telaCardapioRestaurante', {itens: cardapioItens})
     }
+
+    removerItemCardapio(req: Request, res: Response) {
+        const contaId = res.locals.contaId
+        const { nomeItem } = req.body
+        if(nomeItem) {
+            if(this.fachada.deleteItemCardapio(contaId, nomeItem)) {
+                this.visualizarCardapio(req, res);
+            }
+        }
+    }
 }

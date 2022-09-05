@@ -13,6 +13,29 @@ export class RepositorioCardapiosOO implements IRepositorioCardapios {
         this.cardapios = bancoCardapios['cardapios'];
     }
 
+    deleteItem(restId: number, nomeItem: string): boolean {
+        const cardapio = this.getCardapio(restId)
+        if(cardapio.getRestId()) {
+            const successfulDelete = cardapio.deleteItem(nomeItem)
+            if(successfulDelete) {
+                let cardapioJson = this.cardapios.find((c) => c.restId === cardapio.getRestId());
+                if(cardapioJson && cardapioJson.itens){
+                    cardapioJson.itens = JSON.parse(JSON.stringify(cardapio.getItens()))
+                    this.atualizaBanco()
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    updateItem(restId: number, nomeItem: string, updatedItem: Item): Item {
+        throw new Error("Method not implemented.");
+    }
+    addItem(restId: number, item: Item): Item {
+        throw new Error("Method not implemented.");
+    }
+
     private atualizaBanco(): void {
         const data = JSON.stringify({"cardapios": this.cardapios});
         fs.writeFile(path.join(__dirname, '..', 'data', 'cardapios', 'cardapios.json'), data, (err) => {
