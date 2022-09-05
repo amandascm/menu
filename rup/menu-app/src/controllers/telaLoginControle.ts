@@ -34,7 +34,7 @@ export class TelaLoginControle {
         const token = this.fachada.controladorLogin.login(email, password, accountType)
         if(token) {
             res.setHeader('Set-Cookie', [
-                `accesstoken=${token}; Path=/; HttpOnly; Max-Age=${60000 * 15};`,
+                `accesstoken=${token}; Path=/${accountType}; HttpOnly; Max-Age=${60000 * 15};`,
             ])
             return res.render("welcome");
         }
