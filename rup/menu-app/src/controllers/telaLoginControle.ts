@@ -1,9 +1,5 @@
 import { Request, Response } from "express";
 import { Fachada } from "../controladores/fachada";
-import { Cliente } from "../entidades/cliente";
-import { Conta } from "../entidades/conta";
-import { Endereco } from "../entidades/endereco";
-import { Restaurante } from "../entidades/restaurante";
 
 export class TelaLoginControle {
     private fachada: Fachada;
