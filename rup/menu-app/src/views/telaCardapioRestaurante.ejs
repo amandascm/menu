@@ -7,7 +7,10 @@
             type: 'post',
             dataType: 'json',
             contentType: 'application/json',
-            data: JSON.stringify({ "nomeItem": item })
+            data: JSON.stringify({ "nomeItem": item }),
+            complete: function (res) {
+              window.location.reload();
+            }
           })
   }
 </script>

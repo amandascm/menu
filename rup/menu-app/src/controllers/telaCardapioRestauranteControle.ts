@@ -19,7 +19,8 @@ export class TelaCardapioRestauranteControle {
         const { nomeItem } = req.body
         if(nomeItem) {
             if(this.fachada.deleteItemCardapio(contaId, nomeItem)) {
-                return res.redirect('/')
+                const cardapioItens = this.fachada.visualizarCardapio(contaId)
+                return res.render('telaCardapioRestaurante', {itens: cardapioItens})
             }
         }
     }
