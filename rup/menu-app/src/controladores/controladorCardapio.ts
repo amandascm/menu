@@ -1,4 +1,5 @@
 import { CadastroCardapio } from "../cadastros/cadastroCardapio";
+import { Item } from "../entidades/item";
 
 export class ControladorCardapio {
     cadastroCardapio : CadastroCardapio;
@@ -19,5 +20,9 @@ export class ControladorCardapio {
 
     public deleteItemCardapio(restId: number, nomeItem: string) {
         return this.cadastroCardapio.deleteItemCardapio(restId, nomeItem);
+    }
+
+    public addItemCardapio(restId: number, item: Item) {
+        return this.cadastroCardapio.addItemCardapio(restId, item);
     }
 }

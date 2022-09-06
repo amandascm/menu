@@ -7,5 +7,5 @@ export interface IRepositorioCardapios {
     getCardapioDisponiveis(restId: number): Cardapio;
     deleteItem(restId: number, nomeItem: string): boolean;
     updateItem(restId: number, nomeItem: string, updatedItem: Item): Item;
-    addItem(restId: number, item: Item): Item;
+    addItem(restId: number, item: Item): Item | undefined;
 }

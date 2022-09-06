@@ -48,6 +48,10 @@ app.get("/restaurante/cardapio", (req, res) => telaCardapioRestauranteControle.v
 
 app.post("/restaurante/cardapio/delete", (req, res) => telaCardapioRestauranteControle.removerItemCardapio(req, res));
 
+app.post("/restaurante/cardapio/add", (req, res) => telaCardapioRestauranteControle.adicionarItemCardapio(req, res));
+
+app.get("/restaurante/cardapio/add", (req, res) => res.render("partials/newItem"))
+
 app.get('/cliente', (req, res) => res.render('welcome-cliente'));
 
 app.listen(port, function () {

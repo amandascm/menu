@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Fachada } from "../controladores/fachada";
+import { Item } from "../entidades/item";
 
 export class TelaCardapioRestauranteControle {
     private fachada: Fachada;
@@ -22,6 +23,15 @@ export class TelaCardapioRestauranteControle {
                 const cardapioItens = this.fachada.visualizarCardapio(contaId)
                 return res.render('telaCardapioRestaurante', {itens: cardapioItens})
             }
+        }
+    }
+
+    adicionarItemCardapio(req: Request, res: Response) {
+        const contaId = res.locals.contaId
+        const { nomeItem, descricaoItem, precoItem, disponivelItem } = req.body
+        const item = new Item(disponivelItem, nomeItem, descricaoItem, precoItem)
+        if(this.fachada.addItemCardapio(contaId, item)) {
+            res.redirect("../cardapio/")
         }
     }
 }

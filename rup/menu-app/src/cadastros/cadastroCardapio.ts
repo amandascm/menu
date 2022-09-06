@@ -24,4 +24,8 @@ export class CadastroCardapio {
     deleteItemCardapio(restId: number, nomeItem: string): boolean {
         return this.repositorio.deleteItem(restId, nomeItem);
     }
+
+    addItemCardapio(restId: number, item: Item): Item | undefined {
+        return this.repositorio.addItem(restId, item);
+    }
 }

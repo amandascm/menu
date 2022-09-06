@@ -9,6 +9,7 @@ import { Cliente } from "../entidades/cliente";
 import { CadastroSessao } from "../cadastros/cadastroSessao";
 import { CadastroCardapio } from "../cadastros/cadastroCardapio";
 import { ControladorCardapio } from "./controladorCardapio";
+import { Item } from "../entidades/item";
 
 const config = {
     "FACTORY_REPOSITORIOS": FactoryRepositorioOO
@@ -54,5 +55,9 @@ export class Fachada {
 
     deleteItemCardapio(restId: number, nomeItem: string): boolean {
         return this.controladorCardapio.deleteItemCardapio(restId, nomeItem);
+    }
+
+    addItemCardapio(restId: number, item: Item): Item | undefined {
+        return this.controladorCardapio.addItemCardapio(restId, item);
     }
 }

@@ -13,11 +13,21 @@
             }
           })
   }
+
+  function addItem() {
+    $("#newItem").addClass("ui segment")
+    $("#newItem").css({"background-color": "rgb(242, 242, 242)","border-radius": "8px", "padding": "8px", "margin": "8px"})
+    $("#newItem").load("/restaurante/cardapio/add");
+  }
 </script>
 <main>
   <div class="ui segment">
     <h1>Cardapio</h1>
-    <div>
+    <div id="itens">
+      <button onclick="addItem()">
+        Novo item
+      </button>
+      <div id="newItem"></div>
       <% for(let i of itens){ %>
         <div class="ui segment" style="background-color: rgb(242, 242, 242); border-radius: 8px; padding: 8px; margin: 8px">
           <h2>

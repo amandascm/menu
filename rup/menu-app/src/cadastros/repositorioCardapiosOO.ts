@@ -32,8 +32,16 @@ export class RepositorioCardapiosOO implements IRepositorioCardapios {
     updateItem(restId: number, nomeItem: string, updatedItem: Item): Item {
         throw new Error("Method not implemented.");
     }
-    addItem(restId: number, item: Item): Item {
-        throw new Error("Method not implemented.");
+    addItem(restId: number, item: Item): Item | undefined {
+        const cardapio = this.getCardapio(restId)
+        if(cardapio.getRestId()) {
+            if(!cardapio.existeItem(item)) {
+                const cardapioIndex = this.getCardapioIndex(restId)
+                this.cardapios[cardapioIndex].itens.push(JSON.parse(JSON.stringify(item)))
+                return item
+            }
+        }
+        return undefined
     }
 
     private atualizaBanco(): void {
@@ -65,6 +73,10 @@ export class RepositorioCardapiosOO implements IRepositorioCardapios {
             return new Cardapio(cardInfo.itens, cardInfo.restId);
         }
         return new Cardapio([], 0);
+    }
+
+    public getCardapioIndex(restId: number): number {
+        return this.cardapios.findIndex((c) => c.restId == restId)
     }
 
     public getCardapioDisponiveis(restId: number): Cardapio {
