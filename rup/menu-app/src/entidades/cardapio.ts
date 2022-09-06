@@ -44,14 +44,14 @@ export class Cardapio {
         return false
     }
 
-    public updateItem(nome: string, i: Item): boolean {
+    public updateItem(nome: string, i: Item): Item | undefined {
         const toUpdateIndex = this.recuperaItemIndex(nome)
         if (toUpdateIndex >= 0) {
             this.itens[toUpdateIndex] = i
-            return true
+            return this.itens[toUpdateIndex]
         }
         else {
-            return false
+            return undefined
         }
     }
 }

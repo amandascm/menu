@@ -18,20 +18,25 @@ export class RepositorioCardapiosOO implements IRepositorioCardapios {
         if(cardapio.getRestId()) {
             const successfulDelete = cardapio.deleteItem(nomeItem)
             if(successfulDelete) {
-                let cardapioJson = this.cardapios.find((c) => c.restId === cardapio.getRestId());
-                if(cardapioJson && cardapioJson.itens){
-                    cardapioJson.itens = JSON.parse(JSON.stringify(cardapio.getItens()))
-                    this.atualizaBanco()
-                    return true
-                }
+                this.atualizaCardapioRestaurante(cardapio)
+                return true
             }
         }
         return false
     }
 
-    updateItem(restId: number, nomeItem: string, updatedItem: Item): Item {
-        throw new Error("Method not implemented.");
+    updateItem(restId: number, nomeItem: string, updatedItem: Item): Item | undefined{
+        const cardapio = this.getCardapio(restId)
+        if(cardapio.getRestId()) {
+            const item = cardapio.updateItem(nomeItem, updatedItem);
+            if(item) {
+                this.atualizaCardapioRestaurante(cardapio);
+                return item;
+            }
+        }
+        return undefined;
     }
+
     addItem(restId: number, item: Item): Item | undefined {
         const cardapio = this.getCardapio(restId)
         if(cardapio.getRestId()) {
@@ -42,6 +47,14 @@ export class RepositorioCardapiosOO implements IRepositorioCardapios {
             }
         }
         return undefined
+    }
+
+    private atualizaCardapioRestaurante(cardapio: Cardapio) {
+        let cardapioJson = this.cardapios.find((c) => c.restId === cardapio.getRestId());
+        if(cardapioJson){
+            cardapioJson.itens = JSON.parse(JSON.stringify(cardapio.getItens()))
+            this.atualizaBanco()
+        }
     }
 
     private atualizaBanco(): void {
@@ -65,6 +78,16 @@ export class RepositorioCardapiosOO implements IRepositorioCardapios {
             this.atualizaBanco();
             return true;
         }        
+    }
+
+    public getItemCardapio(restId: number, item: string): Item | undefined {
+        const cardInfo = this.cardapios.find((c) => c.restId == restId)
+        if (cardInfo) {
+            const itemObj = cardInfo.itens.find(i => i.nome === item);
+            if(itemObj)
+                return new Item(itemObj.disponivel, itemObj.nome, itemObj.descricao, itemObj.preco);
+        }
+        return undefined;
     }
 
     public getCardapio(restId: number): Cardapio {
