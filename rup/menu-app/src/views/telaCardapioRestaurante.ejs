@@ -1,6 +1,15 @@
 <%- include('partials/header.ejs') %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-  let itens = "<%= itens %>"
+  function deleteItem(item) {
+    $.ajax({
+            url: '/restaurante/cardapio/delete',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify({ "nomeItem": item })
+          })
+  }
 </script>
 <main>
   <div class="ui segment">
@@ -26,7 +35,7 @@
               Indisponível
             </p>
           <% } %>
-          <button>
+          <button onclick="deleteItem('<%=i.nome%>')">
             remover
           </button>
         </div>

@@ -38,7 +38,7 @@ export class Cardapio {
     public deleteItem(nome: string): boolean {
         const toDeleteIndex = this.recuperaItemIndex(nome)
         if(toDeleteIndex >= 0) {
-            this.itens = this.itens.splice(toDeleteIndex, 1)
+            this.itens.splice(toDeleteIndex, 1)
             return true
         }
         return false
