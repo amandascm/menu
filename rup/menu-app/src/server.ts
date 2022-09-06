@@ -50,7 +50,11 @@ app.post("/restaurante/cardapio/delete", (req, res) => telaCardapioRestauranteCo
 
 app.post("/restaurante/cardapio/add", (req, res) => telaCardapioRestauranteControle.adicionarItemCardapio(req, res));
 
-app.get("/restaurante/cardapio/add", (req, res) => res.render("partials/newItem"))
+app.get("/restaurante/cardapio/add", (req, res) => res.render("partials/newItem"));
+
+app.post('/restaurante/cardapio/update-template', (req, res) => telaCardapioRestauranteControle.getAtualizarItemTemplate(req, res));
+
+app.post('/restaurante/cardapio/update', (req, res) => telaCardapioRestauranteControle.atualizarItemCardapio(req, res));
 
 app.get('/cliente', (req, res) => res.render('welcome-cliente'));
 

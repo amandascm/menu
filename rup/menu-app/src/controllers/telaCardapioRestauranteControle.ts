@@ -34,4 +34,26 @@ export class TelaCardapioRestauranteControle {
             res.redirect("../cardapio/")
         }
     }
+
+    getAtualizarItemTemplate(req: Request, res: Response) {
+        const contaId = res.locals.contaId
+        const { nomeItem } = req.body
+        if(nomeItem) {
+            const item = this.fachada.getItemCardapio(contaId, nomeItem);
+            if(item) {
+                return res.render('partials/updateItem', { item: item });
+            }
+        }
+        res.sendStatus(404);
+    }
+
+    atualizarItemCardapio(req: Request, res: Response) {
+        const contaId = res.locals.contaId
+        const { nomeItem, novoNomeItem, descricaoItem, precoItem, disponivelItem } = req.body
+        const item = new Item(disponivelItem, novoNomeItem, descricaoItem, precoItem)
+        if(this.fachada.updateItemCardapio(contaId, nomeItem, item)) {
+            return res.redirect("../cardapio/")
+        }
+        res.sendStatus(404);
+    }
 }

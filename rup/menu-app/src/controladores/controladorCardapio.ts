@@ -18,11 +18,19 @@ export class ControladorCardapio {
         }
     }
 
+    public getItemCardapio(restId: number, nomeItem: string) {
+        return this.cadastroCardapio.getItemCardapio(restId, nomeItem);
+    }
+
     public deleteItemCardapio(restId: number, nomeItem: string) {
         return this.cadastroCardapio.deleteItemCardapio(restId, nomeItem);
     }
 
     public addItemCardapio(restId: number, item: Item) {
         return this.cadastroCardapio.addItemCardapio(restId, item);
+    }
+
+    public updateItemCardapio(restId: number, nomeItem: string, item: Item) {
+        return this.cadastroCardapio.updateItemCardapio(restId, nomeItem, item);
     }
 }

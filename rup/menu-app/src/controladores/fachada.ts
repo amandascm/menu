@@ -41,6 +41,10 @@ export class Fachada {
         return this.controladorCardapio.getItensCardapio(restId);
     }
 
+    getItemCardapio(restId: number, nomeItem: string) {
+        return this.controladorCardapio.getItemCardapio(restId, nomeItem);
+    }
+
     registrarRestaurante(r: Restaurante): boolean {
         return this.controladorCadastro.registrarRestaurante(r);
     }
@@ -59,5 +63,9 @@ export class Fachada {
 
     addItemCardapio(restId: number, item: Item): Item | undefined {
         return this.controladorCardapio.addItemCardapio(restId, item);
+    }
+
+    public updateItemCardapio(restId: number, nomeItem: string, item: Item) {
+        return this.controladorCardapio.updateItemCardapio(restId, nomeItem, item);
     }
 }

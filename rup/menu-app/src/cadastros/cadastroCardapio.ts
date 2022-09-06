@@ -13,6 +13,10 @@ export class CadastroCardapio {
         return this.repositorio.registrarCardapio(c);
     }
 
+    getItemCardapio(restId: number, nomeItem: string) {
+        return this.repositorio.getItemCardapio(restId, nomeItem);
+    }
+
     getCardapio(restId: number): Cardapio {
         return this.repositorio.getCardapio(restId);
     }
@@ -27,5 +31,9 @@ export class CadastroCardapio {
 
     addItemCardapio(restId: number, item: Item): Item | undefined {
         return this.repositorio.addItem(restId, item);
+    }
+
+    public updateItemCardapio(restId: number, nomeItem: string, item: Item) {
+        return this.repositorio.updateItem(restId, nomeItem, item);
     }
 }
