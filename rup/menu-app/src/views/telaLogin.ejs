@@ -1,0 +1,65 @@
+<%- include('partials/header.ejs') %>
+<p style="color: red;"><%= mensagem %></p>
+<h2>Login externo</h2>
+<h3>Cliente</h3>
+<p>Há um retorno aleatório entre sucesso e falha pelo subsistema da operadora OAuth. Teste mais de uma vez para verificar.</p>
+<form action="/loginexterno" method="POST">
+  <button type="submit" class="btn btn-primary btn-block">
+    Simular login OAuth
+  </button>
+</form>
+
+<h2>Login default</h2>
+<h3>Cliente</h3>
+<form action="/login/?accounttype=cliente" method="POST">
+  <div>
+    <p>Email: </p>
+    <input 
+      type="email"
+      name="email"
+      placeholder="Digite o e-mail"
+      value="<%= typeof name != 'undefined' ? name : '' %>"
+    />
+  </div>
+  <div>
+    <p>Senha: </p>
+    <input 
+      type="password"
+      name="password"
+      placeholder="Digite a senha"
+      value="<%= typeof name != 'undefined' ? name : '' %>"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary btn-block">
+    Login
+  </button>
+</form>
+<h3>Restaurante</h3>
+<form action="/login/?accounttype=restaurante" method="POST">
+  <div>
+    <p>Email: </p>
+    <input 
+      type="email"
+      name="email"
+      placeholder="Digite o e-mail"
+      value="<%= typeof name != 'undefined' ? name : '' %>"
+    />
+  </div>
+  <div>
+    <p>Senha: </p>
+    <input 
+      type="password"
+      name="password"
+      placeholder="Digite a senha"
+      value="<%= typeof name != 'undefined' ? name : '' %>"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary btn-block">
+    Login
+  </button>
+</form>
+<footer >
+    <%- include('partials/footer.ejs') %>
+</footer>
+</body>
+</html>
