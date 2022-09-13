@@ -30,8 +30,12 @@ export class TelaLoginControle {
                 return res.redirect(`../cliente`);
             }
             else {
+                res.status(404)
                 return res.render("telaLogin", {mensagem: 'Falha no login OAuth.'})
             }
+        }).catch((e) => {
+            res.status(404)
+            return res.render("telaLogin", {mensagem: 'Falha no login OAuth.'})
         })
     }
 
