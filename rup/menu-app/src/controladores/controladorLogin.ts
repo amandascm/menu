@@ -39,8 +39,8 @@ export class ControladorLogin {
         }
     }
 
-    public loginExterno(): string {
-        const response = this.subsistemaComunicacaoOpOAuthLogin.login();
+    public async loginExterno(jwtToken: string, clientID: string): Promise<string> {
+        const response = await this.subsistemaComunicacaoOpOAuthLogin.login(jwtToken, clientID);
         if(response.token) {    // se o login externo foi validado
             const endereco = new Endereco('',0,'',0)
             const c = new Cliente(0, response.email, '', response.nome, endereco)

@@ -1,3 +1,3 @@
 export interface ISubsistemaComunicacaoOperadoraOAuthLogin {
-    login(): {token: string, email:  string, nome: string};
+    login(jwtToken: string, clientID: string): Promise<{token: string, email:  string, nome: string}>;
 }

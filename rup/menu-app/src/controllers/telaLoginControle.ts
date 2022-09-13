@@ -21,12 +21,22 @@ export class TelaLoginControle {
     }
 
     loginExterno(req: Request, res: Response) {
-        if(this.fachada.controladorLogin.loginExterno()) {
-            return res.redirect(`../cliente`);
-        }
-        else {
+        const {jwtToken, clientId} = req.body;
+        this.fachada.loginExterno(jwtToken, clientId).then(token => {
+            if(token) {
+                res.setHeader('Set-Cookie', [
+                    `accesstoken=${token}; Path=/cliente; HttpOnly; Max-Age=${60000 * 15};`,
+                ])                    
+                return res.redirect(`../cliente`);
+            }
+            else {
+                res.status(404)
+                return res.render("telaLogin", {mensagem: 'Falha no login OAuth.'})
+            }
+        }).catch((e) => {
+            res.status(404)
             return res.render("telaLogin", {mensagem: 'Falha no login OAuth.'})
-        }
+        })
     }
 
     login(req: Request, res: Response) {
