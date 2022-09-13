@@ -53,8 +53,8 @@ export class Fachada {
         return this.controladorCadastro.registrarCliente(c);
     }
 
-    loginExterno(): string {
-        return this.controladorLogin.loginExterno();
+    loginExterno(jwtToken: string, clientId: string): Promise<string> {
+        return this.controladorLogin.loginExterno(jwtToken, clientId);
     }
 
     deleteItemCardapio(restId: number, nomeItem: string): boolean {
