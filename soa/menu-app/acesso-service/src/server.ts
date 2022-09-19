@@ -13,11 +13,13 @@ const fachada: FachadaAcessoService = new FachadaAcessoService();
 
 app.post("/cadastro", (req, res) => fachada.registrar(req, res));
 
-app.post('/loginexterno', (req, res) => fachada.loginExterno(req, res));
-
 app.post('/login', (req, res) => fachada.login(req, res));
 
 app.post('/verificartoken', (req, res) => fachada.authenticate(req, res));
+
+app.post('/getcliente', (req, res) => fachada.getCliente(req, res));
+
+app.post('/registrarsessao', (req, res) => fachada.registrarSessao(req, res));
 
 app.listen(port, function () {
   console.log(`Server is running on port ${port}`);
