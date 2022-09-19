@@ -11,17 +11,13 @@ export class TelaCadastroControle {
 
     registrar(req: Request, res: Response) {
         const accountType = req.query.accounttype;
-        fetch(`http:localhost:5000/cadastro/?accounttype=${accountType}`, {
+        fetch(`http://localhost:5000/cadastro/?accounttype=${accountType}`, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
             },
-            body: req.body
-        }).then((response) => {
-            if (!response.ok) {
-                return res.render("telaCadastro", {mensagem: 'Uma conta já existe com o email fornecido.'})
-            }
-    
+            body: JSON.stringify(req.body)
+        }).then((response) => {    
             response.json().then((result) => {
                 if(result.id < 0) return res.render("telaCadastro", {mensagem: 'Uma conta já existe com o email fornecido.'});
                 return res.redirect('../login')
