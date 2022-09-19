@@ -39,8 +39,8 @@ app.post('/loginexterno', (req, res) => telaLoginControle.loginExterno(req, res)
 
 app.post('/login', (req, res) => telaLoginControle.login(req, res));
 
-// // Authentication middleware applied to the following routes
-// app.use((req, res, next) => telaLoginControle.authenticate(req, res, next))
+// Authentication middleware applied to the following routes
+app.use((req, res, next) => telaLoginControle.authenticate(req, res, next))
 
 app.get('/restaurante', (req, res) => res.render('welcome-restaurante'));
 

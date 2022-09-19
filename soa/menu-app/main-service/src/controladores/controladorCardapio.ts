@@ -1,4 +1,5 @@
 import { CadastroCardapio } from "../cadastros/cadastroCardapio";
+import { Cardapio } from "../entidades/cardapio";
 import { Item } from "../entidades/item";
 
 export class ControladorCardapio {
@@ -6,6 +7,10 @@ export class ControladorCardapio {
 
     constructor(cadastroCardapio: CadastroCardapio) {
         this.cadastroCardapio = cadastroCardapio;
+    }
+
+    public registrarCardapio(c: Cardapio): boolean {
+        return this.cadastroCardapio.registrarCardapio(c);
     }
 
     public getItensCardapio(restId: number) {

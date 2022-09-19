@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, response, Response } from "express";
 import fetch from "node-fetch";
 import { Fachada } from "../controladores/fachada";
 
@@ -10,15 +10,25 @@ export class TelaLoginControle {
     }
 
     authenticate(req: Request, res: Response, next: any) {
-        // const accesstoken = req.cookies['accesstoken'] ?? '';
-        // const contaId = this.fachada.controladorLogin.authenticate(accesstoken);
-        // if(contaId) {
-        //     res.locals.contaId = contaId;
-        //     next();
-        // }
-        // else {
-        //     res.status(401).render('unauthorized');
-        // }
+        const accesstoken = req.cookies['accesstoken'] ?? '';
+        fetch('http://localhost:5000/verificartoken', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({accesstoken})
+        }).then(response => {
+            response.json().then((result) => {
+                const contaId = result.contaId;
+                if(contaId) {
+                    res.locals.contaId = contaId;
+                    next();
+                }
+                else {
+                    return res.status(401).render('unauthorized');
+                }
+            });
+        }).catch((e) => {
+            return res.status(401).render('unauthorized');
+        });
     }
 
     loginExterno(req: Request, res: Response) {
