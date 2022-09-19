@@ -1,0 +1,85 @@
+<%- include('partials/header.ejs') %>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<div id="g_id_onload"
+  data-client_id="829656890134-doed71f77q3rmvhhj0c2o6r0ntjj7d68"
+  data-callback="handleCredentialResponse">
+</div>
+<p id="msg" style="color: red;"><%= mensagem %></p>
+<div id="login-externo" style="margin-bottom: 20px;">
+  <h2>Login externo</h2>
+  <h3>Cliente</h3>
+  <div>
+    <div class="g_id_signin" data-type="standard"></div>
+  </div>
+</div>
+
+<div id="login-default">
+  <h2>Login default</h2>
+  <h3>Cliente</h3>
+  <form action="/login/?accounttype=cliente" method="POST">
+    <div>
+      <p>Email: </p>
+      <input 
+        type="email"
+        name="email"
+        placeholder="Digite o e-mail"
+        value="<%= typeof name != 'undefined' ? name : '' %>"
+      />
+    </div>
+    <div>
+      <p>Senha: </p>
+      <input 
+        type="password"
+        name="password"
+        placeholder="Digite a senha"
+        value="<%= typeof name != 'undefined' ? name : '' %>"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">
+      Login
+    </button>
+  </form>
+  <h3>Restaurante</h3>
+  <form action="/login/?accounttype=restaurante" method="POST">
+    <div>
+      <p>Email: </p>
+      <input 
+        type="email"
+        name="email"
+        placeholder="Digite o e-mail"
+        value="<%= typeof name != 'undefined' ? name : '' %>"
+      />
+    </div>
+    <div>
+      <p>Senha: </p>
+      <input 
+        type="password"
+        name="password"
+        placeholder="Digite a senha"
+        value="<%= typeof name != 'undefined' ? name : '' %>"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">
+      Login
+    </button>
+  </form>
+</div>
+<footer >
+    <%- include('partials/footer.ejs') %>
+</footer>
+<script>
+  function handleCredentialResponse(response) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/loginexterno', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function() {
+      if (xhr.readyState == 4 && xhr.status == 200 && xhr.responseURL)
+        window.location.href = xhr.responseURL
+      else
+        document.getElementById('msg').innerHTML = 'Falha no login OAuth'
+    };
+    xhr.send(JSON.stringify({jwtToken: response.credential, clientId: response.clientId}));
+  }
+</script>
+</body>
+</html>

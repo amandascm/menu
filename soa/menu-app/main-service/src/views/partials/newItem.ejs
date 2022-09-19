@@ -1,0 +1,19 @@
+<form action="/restaurante/cardapio/add" method="POST">
+    <p>
+        Nome:
+        <input required type="text" name="nomeItem"/>
+    </p>
+    <p>
+        Descrição: 
+        <input required type="text" name="descricaoItem"/>
+    </p>
+    <p>
+        Preço:
+        <input required type="number" step="0.01" name="precoItem"/>
+    </p>
+    <p>
+        <input type="checkbox" name="disponivelItem"/>
+        Disponível
+    </p>
+    <button type="submit">Adicionar</button>
+</form>

@@ -1,0 +1,55 @@
+{
+    "cardapios": [
+        {
+            "itens": [
+                {
+                    "nome": "exemplo",
+                    "disponivel": false,
+                    "descricao": "",
+                    "preco": 30.5
+                }
+            ],
+            "restId": 0
+        },
+        {
+            "itens": [
+                {
+                    "nome": "Lasanha",
+                    "descricao": "Lasanha bolonhesa com molho de tomate",
+                    "preco": 23.70,
+                    "disponivel": true
+                },
+                {
+                    "nome": "Risoto",
+                    "descricao": "Arroz branco com molho branco",
+                    "preco": 26.70,
+                    "disponivel": false
+                }
+            ],
+            "restId": 1
+        },
+        {
+            "itens": [
+                {
+                    "nome": "Hamburguer",
+                    "descricao": "Pão, tomate, alface, carne e queijo cheddar",
+                    "preco": 15.0,
+                    "disponivel": true
+                },
+                {
+                    "nome": "Batata frita",
+                    "descricao": "Porção de batata frita, acompanha molho",
+                    "preco": 10.0,
+                    "disponivel": true
+                },
+                {
+                    "nome": "Refrigerante",
+                    "descricao": "Lata de 350ml",
+                    "preco": 5.0,
+                    "disponivel": false
+                }
+            ],
+            "restId": 2
+        }
+    ]
+}
