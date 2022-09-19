@@ -1,11 +1,11 @@
-# menu-app
+# menu-app-soa
 
-This is a node.js app developed to represent a subset of use-cases from the proposed menu system design.
+This is a node.js app developed to represent a subset of use-cases from the proposed menu system design using the microservices architecture.
 
-## Access this subdirectory via CLI
+## Access any service subdirectory
 
 ```bash
-cd menu/rup/menu-app
+cd acesso-service
 ```
 
 ## Install dependencies
@@ -14,7 +14,7 @@ cd menu/rup/menu-app
 npm install
 ```
 
-## Run application
+## Run the service
 
 ```bash
 npm run start
