@@ -3,6 +3,7 @@ import { AbstractFactoryRepositorio } from "../cadastros/abstractFactoryReposito
 import { CadastroCardapio } from "../cadastros/cadastroCardapio";
 import { ControladorCardapio } from "./controladorCardapio";
 import { Item } from "../entidades/item";
+import { Cardapio } from "../entidades/cardapio";
 
 const config = {
     "FACTORY_REPOSITORIOS": FactoryRepositorioOO
@@ -18,6 +19,10 @@ export class Fachada {
         const cadastroCardapio = new CadastroCardapio(repositorioCardapios);
 
         this.controladorCardapio = new ControladorCardapio(cadastroCardapio);
+    }
+
+    registrarCardapio(restId: number) {
+        return this.controladorCardapio.registrarCardapio(new Cardapio([], restId));
     }
 
     visualizarCardapio(restId: number) {

@@ -75,16 +75,14 @@ export class FachadaAcessoService {
         return res.send({ message: "Falha no login" })
     }
 
-    authenticate(req: Request, res: Response, next: any) {
-        const accesstoken = req.cookies['accesstoken'] ?? '';
+    authenticate(req: Request, res: Response) {
+        const {accesstoken} = req.body;
         const contaId = this.controladorLogin.authenticate(accesstoken);
         if(contaId) {
-            res.locals.contaId = contaId;
-            next();
+            return res.status(202).send({contaId});
         }
         else {
-            res.status(401);
-            return res.send({ message: "Unauthorized" })
+            return res.status(401).send({ message: "Unauthorized" })
         }
     }
 }
