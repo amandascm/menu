@@ -9,6 +9,7 @@ import { Cliente } from "../entidades/cliente";
 import { CadastroSessao } from "../cadastros/cadastroSessao";
 import { Request, Response } from "express";
 import { Endereco } from "../entidades/endereco";
+import { Sessao } from "../entidades/sessao";
 
 const config = {
     "FACTORY_REPOSITORIOS": FactoryRepositorioOO
@@ -47,23 +48,7 @@ export class FachadaAcessoService {
         res.status(404);
         return res.send({ message: "Falha no cadastro" });
     }
-
-    loginExterno(req: Request, res: Response) {
-        const {jwtToken, clientId} = req.body;
-        this.controladorLogin.loginExterno(jwtToken, clientId).then(token => {
-            if(token) {
-                return res.send({ token: token });
-            }
-            else {
-                res.status(404);
-                return res.send({ message: "Falha no login" })
-            }
-        }).catch((e) => {
-            res.status(404);
-            return res.send({ message: "Falha no login" })
-        })
-    }
-
+    
     login(req: Request, res: Response) {
         const {email, password} = req.body;
         const accountType = req.query.accounttype === 'cliente' ? 'cliente' : 'restaurante';
@@ -84,5 +69,18 @@ export class FachadaAcessoService {
         else {
             return res.status(401).send({ message: "Unauthorized" })
         }
+    }
+
+    getCliente(req: Request, res: Response) {
+        const {name, email} = req.body;
+        const contaId = this.controladorLogin.getCliente(email, name);
+        return res.status(200).send({contaId});
+    }
+
+    registrarSessao(req: Request, res: Response) {
+        const {token, contaId, tipoConta} = req.body;
+        let s = new Sessao(token, tipoConta, contaId);
+        s = this.controladorLogin.registrarSessao(s);
+        return res.status(201).send({ token: s.getToken() });
     }
 }

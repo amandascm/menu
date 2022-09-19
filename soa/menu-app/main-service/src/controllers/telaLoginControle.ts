@@ -33,21 +33,26 @@ export class TelaLoginControle {
 
     loginExterno(req: Request, res: Response) {
         const {jwtToken, clientId} = req.body;
-        // this.fachada.loginExterno(jwtToken, clientId).then(token => {
-        //     if(token) {
-        //         res.setHeader('Set-Cookie', [
-        //             `accesstoken=${token}; Path=/cliente; HttpOnly; Max-Age=${60000 * 15};`,
-        //         ])                    
-        //         return res.redirect(`../cliente`);
-        //     }
-        //     else {
-        //         res.status(404)
-        //         return res.render("telaLogin", {mensagem: 'Falha no login OAuth.'})
-        //     }
-        // }).catch((e) => {
-        //     res.status(404)
-        //     return res.render("telaLogin", {mensagem: 'Falha no login OAuth.'})
-        // })
+        fetch('http://localhost:3000/loginexterno', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({jwtToken, clientId})
+        }).then(response => {
+            response.json().then((result) => {
+                const token = result.token;
+                if(token) {
+                    res.setHeader('Set-Cookie', [
+                        `accesstoken=${token}; Path=/cliente; HttpOnly; Max-Age=${60000 * 15};`,
+                    ])                    
+                    return res.redirect(`../cliente`);
+                }
+                else {                    
+                    return res.status(404).render("telaLogin", {mensagem: 'Falha no login OAuth.'});
+                }
+            });
+        }).catch((e) => {
+            return res.status(404).render("telaLogin", {mensagem: 'Falha no login OAuth.'});
+        });
     }
 
     login(req: Request, res: Response) {
@@ -67,7 +72,6 @@ export class TelaLoginControle {
                 }
                 return res.render("telaLogin", {mensagem: "Falha no login."})
             });
-        });
-        
+        });        
     }
 }
