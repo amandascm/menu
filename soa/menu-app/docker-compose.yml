@@ -1,0 +1,36 @@
+version: "3.3"
+
+services:
+  acesso-service:
+    image: menu-app/acesso-service
+    restart: always
+    ports:
+      - "5000:5000"
+    networks:
+      - menuapp-network
+
+  login-externo-service:
+    image: menu-app/login-externo-service
+    ports:
+      - "3000:3000"
+    restart: always
+    networks:
+      - menuapp-network
+    depends_on:
+      - acesso-service
+
+  main-service:
+    image: menu-app/main-service
+    restart: always
+    ports:
+      - "8000:8000"
+    networks:
+      - menuapp-network
+    depends_on:
+      - acesso-service
+      - login-externo-service
+
+networks:
+  menuapp-network:
+    driver: bridge
+    attachable: true

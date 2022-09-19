@@ -11,7 +11,7 @@ export class TelaLoginControle {
 
     authenticate(req: Request, res: Response, next: any) {
         const accesstoken = req.cookies['accesstoken'] ?? '';
-        fetch('http://localhost:5000/verificartoken', {
+        fetch('http://acesso-service:5000/verificartoken', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({accesstoken})
@@ -33,7 +33,7 @@ export class TelaLoginControle {
 
     loginExterno(req: Request, res: Response) {
         const {jwtToken, clientId} = req.body;
-        fetch('http://localhost:3000/loginexterno', {
+        fetch('http://login-externo-service:3000/loginexterno', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({jwtToken, clientId})
@@ -51,13 +51,13 @@ export class TelaLoginControle {
                 }
             });
         }).catch((e) => {
-            return res.status(404).render("telaLogin", {mensagem: 'Falha no login OAuth.'});
+            return res.status(404).render("telaLogin", {mensagem: 'Falha na comunicação com serviço de login externo.'});
         });
     }
 
     login(req: Request, res: Response) {
         const accountType = req.query.accounttype === 'cliente' ? 'cliente' : 'restaurante';
-        fetch(`http://localhost:5000/login/?accounttype=${accountType}`, {
+        fetch(`http://acesso-service:5000/login/?accounttype=${accountType}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(req.body)
@@ -72,6 +72,8 @@ export class TelaLoginControle {
                 }
                 return res.render("telaLogin", {mensagem: "Falha no login."})
             });
-        });        
+        }).catch((e) => {
+            return res.status(404).render("telaLogin", {mensagem: 'Falha na comunicação com serviço de acesso.'});
+        });
     }
 }
