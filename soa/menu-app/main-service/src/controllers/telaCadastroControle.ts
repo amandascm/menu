@@ -11,7 +11,7 @@ export class TelaCadastroControle {
 
     registrar(req: Request, res: Response) {
         const accountType = req.query.accounttype;
-        fetch(`http://localhost:5000/cadastro/?accounttype=${accountType}`, {
+        fetch(`http://acesso-service:5000/cadastro/?accounttype=${accountType}`, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',                
@@ -28,6 +28,8 @@ export class TelaCadastroControle {
 
                 return res.redirect('../login')
             });
-        });
+        }).catch((e) => {
+            return res.status(404).render("telaCadastro", {mensagem: 'Falha na comunicação com serviço de acesso.'});
+        });;
     }
 }

@@ -12,14 +12,14 @@ export class ControladorLoginExterno {
     public async loginExterno(jwtToken: string, clientID: string): Promise<string> {
         const loginResponse = await this.subsistemaComunicacaoOpOAuthLogin.login(jwtToken, clientID);
         if(loginResponse.token) {    // se o login externo foi validado
-            const responseContaId = await fetch('http://localhost:5000/getcliente', {
+            const responseContaId = await fetch('http://acesso-service:5000/getcliente', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
                 body: JSON.stringify({name: loginResponse.nome, email: loginResponse.email})
             });
             const contaJson = await responseContaId.json();
             const contaId = contaJson.contaId;
-            const responseToken = await fetch('http://localhost:5000/registrarsessao', {
+            const responseToken = await fetch('http://acesso-service:5000/registrarsessao', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
                 body: JSON.stringify({token: loginResponse.token, tipoConta: 'cliente', contaId: contaId})
