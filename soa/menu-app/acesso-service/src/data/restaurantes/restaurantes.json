@@ -1,0 +1,30 @@
+{
+    "restaurantes": [
+        {
+            "id": 1,
+            "email": "pizzariaatlantico@atlantico.com",
+            "senha": "ldaksmdlkam",
+            "nome": "Pizzaria Atlântico",
+            "endereco": {
+                "rua": "Rua Esmeraldino Bandeira",
+                "cep": 52030090,
+                "numero": 150,
+                "bairro": "Graças"
+            },
+            "telefone": "8134789001"
+        },
+        {
+            "id": 2,
+            "email": "paradaobrigatoria@parada.com",
+            "senha": "123456_654321",
+            "nome": "Parada Obrigatória",
+            "endereco": {
+                "rua": "Rua Cardeal Arcoverde",
+                "cep": 520309924,
+                "numero": 160,
+                "bairro": "Graças"
+            },
+            "telefone": "8121211180"
+        }
+    ]
+}

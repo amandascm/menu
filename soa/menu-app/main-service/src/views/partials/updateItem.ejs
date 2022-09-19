@@ -1,0 +1,20 @@
+<form action="/restaurante/cardapio/update" method="POST">
+    <p>
+        Nome:
+        <input required type="text" name="novoNomeItem" value="<%=item.nome%>"/>
+    </p>
+    <p>
+        Descrição: 
+        <input required type="text" name="descricaoItem" value="<%=item.descricao%>"/>
+    </p>
+    <p>
+        Preço:
+        <input required type="number" step="0.01" name="precoItem" value="<%=item.preco%>"/>
+    </p>
+    <p>
+        <input type="checkbox" name="disponivelItem" <%=item.disponivel ? "checked" : "" %>/>
+        Disponível
+    </p>
+    <input type="hidden" name="nomeItem" value="<%=item.nome%>">
+    <button type="submit">Atualizar</button>
+</form>

@@ -1,0 +1,74 @@
+<%- include('partials/header.ejs') %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  update = false;
+
+  function deleteItem(item) {
+    $.ajax({
+            url: '/restaurante/cardapio/delete',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify({ "nomeItem": item }),
+            complete: function (res) {
+              window.location.reload();
+            }
+          })
+  }
+
+  function addItem() {
+    $("#newItem").addClass("ui segment")
+    $("#newItem").css({"background-color": "rgb(242, 242, 242)","border-radius": "8px", "padding": "8px", "margin": "8px"})
+    $("#newItem").load("/restaurante/cardapio/add");
+  }
+
+  function updateItem(item) {
+    $(`h2:contains(${item})`).parent().load("/restaurante/cardapio/update-template", { "nomeItem": item });
+  }
+</script>
+<main>
+  <div class="ui segment">
+    <h1>Cardapio</h1>
+    <div id="itens">
+      <button onclick="addItem()">
+        Novo item
+      </button>
+      <div id="newItem"></div>
+      <% for(let i of itens){ %>
+        <div class="ui segment" style="background-color: rgb(242, 242, 242); border-radius: 8px; padding: 8px; margin: 8px">
+          <h2>
+            <%=i.nome%>
+          </h2>
+          <p>
+            <%=i.descricao%>
+          </p>
+          <p>
+            R$<%=i.preco%>
+          </p>
+          <% if(i.disponivel){ %>
+            <p style="color: rgb(79, 103, 43); background-color: rgb(232, 255, 199);">
+              Disponível
+            </p>
+          <% } else {%>
+            <p style="color: rgb(103, 43, 43); background-color: rgb(250, 190, 190);">
+              Indisponível
+            </p>
+          <% } %>
+          <div style="display: flex; flex-direction: row;">            
+            <button onclick="updateItem('<%=i.nome%>')">
+              atualizar
+            </button>
+            <button onclick="deleteItem('<%=i.nome%>')" style="margin-left: 5px">
+              remover
+            </button>
+          </div>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</main>
+<footer >
+    <%- include('partials/footer.ejs') %>
+</footer>
+</body>
+</html>
