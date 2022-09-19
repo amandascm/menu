@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import fetch from "node-fetch";
 import { Fachada } from "../controladores/fachada";
 
 export class TelaLoginControle {
@@ -40,15 +41,23 @@ export class TelaLoginControle {
     }
 
     login(req: Request, res: Response) {
-        const {email, password} = req.body
-        const accountType = req.query.accounttype === 'cliente' ? 'cliente' : 'restaurante'
-        const token = 1
-        if(token) {
-            res.setHeader('Set-Cookie', [
-                `accesstoken=${token}; Path=/${accountType}; HttpOnly; Max-Age=${60000 * 15};`,
-            ])
-            return res.redirect(`../${accountType}`);
-        }
-        return res.render("telaLogin", {mensagem: "Falha no login."})
+        const accountType = req.query.accounttype === 'cliente' ? 'cliente' : 'restaurante';
+        fetch(`http://localhost:5000/login/?accounttype=${accountType}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(req.body)
+        }).then((response) => {    
+            response.json().then((result) => {                
+                const token = result.token;
+                if(token) {
+                    res.setHeader('Set-Cookie', [
+                        `accesstoken=${token}; Path=/${accountType}; HttpOnly; Max-Age=${60000 * 15};`,
+                    ])
+                    return res.redirect(`../${accountType}`);
+                }
+                return res.render("telaLogin", {mensagem: "Falha no login."})
+            });
+        });
+        
     }
 }

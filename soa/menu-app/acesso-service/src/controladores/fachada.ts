@@ -65,7 +65,7 @@ export class FachadaAcessoService {
     }
 
     login(req: Request, res: Response) {
-        const {email, password} = req.body
+        const {email, password} = req.body;
         const accountType = req.query.accounttype === 'cliente' ? 'cliente' : 'restaurante';
         const token = this.controladorLogin.login(email, password, accountType);
         if(token) {
